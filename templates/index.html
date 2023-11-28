@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <title> GigaShad</title>
+    <link rel="stylesheet" href="{{url_for('static', filename = 'style.css')}}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter&family=Playfair+Display:ital@0;1&family=Roboto&display=swap" rel="stylesheet">
+
+  </head>
+  <body>
+    <header class="page-header">
+        <nav class="main-nav">
+            <ul class="site-navigation">
+                <li class="site-navigation-item">    
+                    <a href="/"> GigaShad </a>
+                </li>
+                <li class="site-navigation-item">    
+                    <a href="/about"> О проекте</a>
+                </li>
+                <li class="site-navigation-item">    
+                    <a href='#faq'> FAQ </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="promo">
+            <h1 class="learningWithGigaShad"> Обучение с GigaShad - это легко ! </h1>
+            <span class="promoTable">
+                <p class="fullText"> Наш сервис поможет Вам в<br> обучении. GigaShad преобразует<br> Ваш текст, учебный материал в<br> тесты для успешной подготовки<br>
+                    <a class="btn-promo" href='/request' class="btn"> Поехали ! </a>
+                 </p>
+            </span>
+        </section>
+
+        <section class="aboutProject">
+            <h2>О проекте</h2>
+            <div class="criterion">
+                <span class="firstСriterion">
+                    <img src="../static/img/questions.png" width="360" height="360" alt="Мужчина, который думает как себя проверить">
+                    <p> 
+                        Будучи студентами, нередко возникает<br> 
+                        необходимость подкрепления усвоенных<br> 
+                        знаний. Именно с этим и поможет наш<br> 
+                        сервис!
+                    </p>
+                </span>
+                <span class="secondСriterion">
+                    <img src="../static/img/tasks.png" width="360" height="360" alt="Блокнот с отмеченными ответами">
+                    <p> 
+                        GigaShad - автоматизированное создание<br>
+                        тестов,  основанных на текстах с<br>
+                        естественным языком.<br>
+                        С помощью нейросети gigaChat и методов<br>
+                        NLP,тексты преобразовываются в тесты 
+                    </p>
+                </span>
+            </div>
+        </section>
+        <section class="FAQ">
+            <h2 id ='faq'> Часто задаваемые вопросы </h2>
+            <a href="/request" class="button"> Поехали ! </a>
+        </section>
+
+    </main>
+    <footer class="main-footer">
+    </footer>
+  </body>
+</html>
