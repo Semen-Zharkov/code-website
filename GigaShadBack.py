@@ -10,9 +10,6 @@ def index():
 def test_page():
     return render_template('request.html')
 
-@Shad.route('/about')
-def about_page():
-    return 'Здесь будет информация о нашем проекте'
 
 if __name__ == '__main__':
     Shad.run(debug = True)
