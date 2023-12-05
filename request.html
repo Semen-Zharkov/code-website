@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <title> GigaShad</title>
+    <link href="{{url_for('static', filename = 'style.css')}}" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter&family=Playfair+Display:ital@0;1&family=Roboto&display=swap" rel="stylesheet">
+  </head>
+  <body class="body-request">
+    <header class="page-header">
+      <nav class="main-nav">
+          <ul class="site-navigation">
+              <li class="site-navigation-item">    
+                  <a href="/" class="nav-gigaShad"> GigaShad </a>
+              </li>
+              <li class="site-navigation-item">    
+                  <a href="/about" class="nav-about-project"> О проекте</a>
+              </li>
+          </ul>
+      </nav>
+  </header>
+    <main>
+        <section class="form">
+            <form action="#" method="post" enctype="multipart/form-data">
+              <p class="form-title"> Вставьте текст или добавьте файл с Вашего устройства </p>
+              <div class="form-text-generation">
+                <textarea name="text-generation" placeholder="Текст для генерации"> </textarea>
+              </div>
+              <div class="container-doc">
+                <input type="text" name="text-number-of-questions" placeholder="Количество вопросов">
+                <div class="input-file">
+                  <input type="file" name="file", accept=".docx, .doc, .pdf, .txt">
+                  <label for="file"><span> Выберите файл </span> </label>
+                </div>  
+              </div>
+              <div class="text-questions">
+                <input type="text" name="text-questions" placeholder="Текст вопроса">
+                <input type="submit" name="send" value="Отправить">
+              </div> 
+            </form>
+        </section>
+    </main>
+    <footer class="main-footer">
+    </footer>
+  </body>
+</html>
