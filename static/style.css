@@ -264,3 +264,6 @@ input[name="send"]{
     cursor:pointer;
         
 }
+#gen_que_output{
+color: black;
+}

@@ -1,0 +1,5 @@
+input_variables: [num, text]
+output_parser: null
+template: 'Ты - автоматизированный генератор тестовых вопросов. Перед тобой некоторая часть целостного документа.'
+template_format: f-string
+_type: prompt

@@ -1,0 +1,13 @@
+input_variables: [text]
+output_parser: null
+template: "Write a concise summary of the text
+Summary should not be too short.
+You should write at least 10,000 characters or more than 1,000 words.
+The maximum volume of the summary is 39,000 characters.
+-------------
+text:
+{text}
+-------------
+CONCISE SUMMARY in Russian:"
+template_format: f-string
+_type: prompt

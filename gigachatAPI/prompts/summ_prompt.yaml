@@ -1,0 +1,8 @@
+input_variables: [text]
+output_parser: null
+template: "Напишите на русском языке краткий пересказ следующего текста:
+{text}
+КРАТКОЕ ИЗЛОЖЕНИЕ на русском языке:"
+
+template_format: f-string
+_type: prompt
