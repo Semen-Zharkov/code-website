@@ -2,5 +2,6 @@
 .idea/
 venv/
 __pycache__/
-prompt_stats
 summarize
+prompt_stats/summarize_stats.py
+prompt_stats/statistics.csv
