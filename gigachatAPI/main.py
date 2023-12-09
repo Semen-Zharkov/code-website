@@ -1,5 +1,5 @@
 from typing import Any
-from random import randint
+from random import sample
 from langchain.chains import LLMChain
 from langchain.chat_models.gigachat import GigaChat
 from gigachatAPI.config_data.config import load_config, Config
@@ -7,42 +7,56 @@ from gigachatAPI.utils.create_prompts import create_prompt
 from gigachatAPI.utils.split_docs import get_docs_list
 from gigachatAPI.utils.output_parser import parse_output
 from gigachatAPI.dita_case.scrap_files import get_dita_docs
-from gigachatAPI.answering_questions.answer_questions import get_answer
 
 
-def generate_questions(file_path: str, que_num: int, system_prompt_path: str,
-                       user_prompt_path: str = '', dita: int = '0') -> Any:
+def generate_questions(file_path: str, system_prompt_path: str,
+                       user_prompt_path: str, cur_que_num: int, dita: int) -> Any:
     config: Config = load_config()
 
     giga: GigaChat = GigaChat(credentials=config.GIGA_CREDENTIALS, verify_ssl_certs=False)
 
     if dita == 1:
-        split_docs = get_dita_docs(file_path, min_doc_length=10000)
+        split_docs = get_dita_docs(file_path, min_doc_length=1000)
     else:
-        split_docs = get_docs_list(file_path)
+        split_docs = get_docs_list(file_path, chunk_size=7000)
 
     prompt = create_prompt(system_prompt_path, user_prompt_path)
 
     chain = LLMChain(llm=giga, prompt=prompt)
 
-    if sum(len(i.page_content) for i in split_docs) > 39000:
-        res = ''
-        for i in range(que_num):
-            rnd = randint(0, len(split_docs) - 1)
-            res += chain.run(num=1, text=split_docs[rnd]) + '\n\n'
-        return res
+    document_length = sum(len(i.page_content) for i in split_docs)
+    max_part_doc_len = max(len(i.page_content) for i in split_docs)
+    total_que_num = cur_que_num
+    print(f'[INFO] Вопросов нужно: {total_que_num} | Длина дока: {document_length}')
+    print(f'[INFO] Кол-во частей дока: {len(split_docs)} | Макс длина части дока: {max_part_doc_len}\n')
+    if document_length > 39000:
+        if len(split_docs) < cur_que_num:
+            if document_length // cur_que_num >= 1000:
+                split_docs = get_docs_list(file_path, chunk_size=(document_length // cur_que_num - 100))
+                print(f'[INFO] Кол-во частей после перерасчета: {len(split_docs)}')
+            else:
+                return 'Слишком много ошибок или слишком маленький документ!'
+        final_result = ''
+        while True:
+            for doc_part in sample(split_docs, cur_que_num):
+                final_result += chain.run(num=1, text=doc_part) + '\n'
+            final_result, cur_que_num = parse_output(final_result, cur_que_num, total_que_num)
+            if cur_que_num:
+                print(f'[INFO] Успешно сгенерировано {total_que_num - cur_que_num} вопросов')
+                print(f'[INFO] Генерирую еще {cur_que_num} вопросов\n')
+                continue
+            print(f'[INFO] Успешно сгенерировано {total_que_num - cur_que_num} вопросов')
+            print(f'[INFO] Токенов потрачено: ...хзпока...')
+            return final_result
     else:
-        result = chain.run(num=que_num, text=split_docs)
-        return parse_output(result)
-
-# if __name__ == '__main__':
-#     SYS_PROMPT_PATH = 'prompts/generate_question_prompt.yaml'
-#     USR_PROMPT_PATH = ''
-#     PATH = 'data/crime6.txt'
-#     questions_number = 5
-#     print(generate_questions(PATH, SYS_PROMPT_PATH, USR_PROMPT_PATH, questions_number, dita=0))
-#
-#     """Блок ответов на вопросы"""
-# for answer in get_answer('data/crime6.txt', 'prompts/qna_system.yaml',
-#                          'prompts/qna_user.yaml', questions_for_crimetxt, dita=0):
-#     print(answer)
+        final_result = ''
+        while True:
+            final_result += chain.run(num=cur_que_num, text=split_docs)
+            final_result, cur_que_num = parse_output(final_result, cur_que_num, total_que_num)
+            if cur_que_num:
+                print(f'[INFO] Успешно сгенерировано {total_que_num - cur_que_num} вопросов')
+                print(f'[INFO] Генерирую еще {cur_que_num} вопросов\n')
+                continue
+            print(f'[INFO] Успешно сгенерировано {total_que_num - cur_que_num} вопросов')
+            print(f'[INFO] Токенов потрачено: ...хзпока...')
+            return final_result

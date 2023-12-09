@@ -40,13 +40,12 @@ def process_file(dita=0):
 
         if asked_question:
             result = get_answer(file_path, 'gigachatAPI/prompts/qna_system.yaml',
-                                'gigachatAPI/prompts/qna_user.yaml', [asked_question], dita=0)
+                                'gigachatAPI/prompts/qna_user.yaml', [asked_question], dita=dita)
         else:
-            result = generate_questions(file_path, que_num, gen_que_sys_prompt_path,
-                                        gen_que_usr_prompt_path, dita=dita)
+            result = generate_questions(file_path, gen_que_sys_prompt_path,
+                                        gen_que_usr_prompt_path, que_num, dita=dita)
 
         del_dir(file_path) if dita == 1 else os.remove(file_path)
-        print(result)
         return jsonify({'result': result})
     elif uploaded_text:
         file_path = os.path.join('gigachatAPI/data', 'file_for_gen_que')
@@ -56,10 +55,9 @@ def process_file(dita=0):
             result = get_answer(file_path, 'gigachatAPI/prompts/qna_system.yaml',
                                 'gigachatAPI/prompts/qna_user.yaml', [asked_question], dita=0)
         else:
-            result = generate_questions(file_path, que_num, gen_que_sys_prompt_path,
-                                        gen_que_usr_prompt_path, dita=0)
+            result = generate_questions(file_path, gen_que_sys_prompt_path,
+                                        gen_que_usr_prompt_path, que_num, dita=0)
         os.remove(file_path)
-        print(result)
         return jsonify({'result': result})
 
 

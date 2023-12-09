@@ -15,7 +15,7 @@ def prepair_answer(file_path: str, prompt_system: str, prompt_user: str, que: st
     giga: GigaChat = GigaChat(credentials=config.GIGA_CREDENTIALS, verify_ssl_certs=False)
 
     if dita == 1:
-        split_docs = get_dita_docs()[doc_num]
+        split_docs = get_dita_docs(file_path)[doc_num]
     else:
         split_docs = get_docs_list(file_path, separator='\n', chunk_size=5000, chunk_overlap=0)
 
