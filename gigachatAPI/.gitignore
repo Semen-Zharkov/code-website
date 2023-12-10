@@ -3,5 +3,4 @@
 venv/
 __pycache__/
 summarize
-prompt_stats/summarize_stats.py
-prompt_stats/statistics.csv
+prompt_stats

@@ -1,7 +1,7 @@
 import fnmatch
 import os
 from langchain.schema import Document
-from gigachatAPI.prompt_stats.get_stats import get_doc_length
+from gigachatAPI.utils.help_methods import get_doc_length
 from langchain.document_loaders import TextLoader
 
 

@@ -28,7 +28,7 @@
               <div class="container-doc">
                 <input type="text" name="text-number-of-questions" placeholder="Количество вопросов">
                 <div class="input-file">
-                  <input type="file" name="file", accept=".docx, .doc, .pdf, .txt, .zip">
+                  <input type="file" name="file" accept=".docx, .doc, .pdf, .txt, .zip">
                   <label for="file"><span> Выберите файл </span> </label>
                 </div>  
               </div>
@@ -38,33 +38,28 @@
             </form>
         </section>
         <div id="gen_que_output"></div> <!-- Див для вывода тестов -->
-        <script src="static/output.js" type="text/javascript" charset="utf-8"></script>
+        <script src="static/scripts/tests_output.js" type="text/javascript" charset="utf-8"></script>
         <section class="form_question">
-          <form action="#" method="post" enctype="multipart/form-data">
+          <form action="/process_answer_questions" method="post" enctype="multipart/form-data">
             <p class="form-title"> Вставьте текст для генерации ответов на вопрос или добавьте файл с Вашего устройства </p>
             <div class="form-text">
-              <textarea name="text_question" placeholder="Текст для генерации"></textarea>
+              <textarea name="text_for_search_answers" placeholder="Текст для генерации"></textarea>
             </div>
             <div class="form-text_question">
-              <textarea name="text_question" placeholder="Текст вопросов"></textarea>
+              <textarea name="asked_questions_text" placeholder="Текст вопросов"></textarea>
             </div>
             <div class="input_file_question">
               <div class="input-file">
-                <input type="file" name="file", accept=".docx, .doc, .pdf, .txt, .zip">
+                <input type="file" name="file" accept=".docx, .doc, .pdf, .txt, .zip">
                 <label for="file"><span> Выберите файл </span> </label>
               </div>
               <input type="submit" name="send" value="Отправить">
             </div>
-            <div class="text-questions">
-            </div>
           </form>
         </section>
         <div id="answer_output"></div> <!-- Див для вывода ответов на вопросы-->
+        <script src="static/scripts/questions_output.js" type="text/javascript" charset="utf-8"></script>
     </main>
-    <footer class="main-footer">
-    </footer>
-  </body>
-</html>
     <footer class="main-footer">
     </footer>
   </body>

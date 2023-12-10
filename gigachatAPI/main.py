@@ -2,6 +2,7 @@ from typing import Any
 from random import sample
 from langchain.chains import LLMChain
 from langchain.chat_models.gigachat import GigaChat
+from gigachatAPI.config_data.config_data import *
 from gigachatAPI.config_data.config import load_config, Config
 from gigachatAPI.utils.create_prompts import create_prompt
 from gigachatAPI.utils.split_docs import get_docs_list
@@ -9,8 +10,7 @@ from gigachatAPI.utils.output_parser import parse_output
 from gigachatAPI.dita_case.scrap_files import get_dita_docs
 
 
-def generate_questions(file_path: str, system_prompt_path: str,
-                       user_prompt_path: str, cur_que_num: int, dita: int) -> Any:
+def generate_questions(file_path: str, cur_que_num: int, dita: int) -> Any:
     config: Config = load_config()
 
     giga: GigaChat = GigaChat(credentials=config.GIGA_CREDENTIALS, verify_ssl_certs=False)
@@ -20,7 +20,7 @@ def generate_questions(file_path: str, system_prompt_path: str,
     else:
         split_docs = get_docs_list(file_path, chunk_size=7000)
 
-    prompt = create_prompt(system_prompt_path, user_prompt_path)
+    prompt = create_prompt(gen_que_sys_prompt_path, gen_que_usr_prompt_path)
 
     chain = LLMChain(llm=giga, prompt=prompt)
 
@@ -46,7 +46,7 @@ def generate_questions(file_path: str, system_prompt_path: str,
                 print(f'[INFO] Генерирую еще {cur_que_num} вопросов\n')
                 continue
             print(f'[INFO] Успешно сгенерировано {total_que_num - cur_que_num} вопросов')
-            print(f'[INFO] Токенов потрачено: ...хзпока...')
+            print(f'[INFO] Токенов потрачено: ...хзпока...\n\n')
             return final_result
     else:
         final_result = ''
@@ -58,5 +58,5 @@ def generate_questions(file_path: str, system_prompt_path: str,
                 print(f'[INFO] Генерирую еще {cur_que_num} вопросов\n')
                 continue
             print(f'[INFO] Успешно сгенерировано {total_que_num - cur_que_num} вопросов')
-            print(f'[INFO] Токенов потрачено: ...хзпока...')
+            print(f'[INFO] Токенов потрачено: ...хзпока...\n\n')
             return final_result
