@@ -7,14 +7,6 @@ body{
     padding: 0;
     color: #fff;
 }
-.bodys{
-    background-image: url("../static/IMG/background.png");
-    background-position: center 0;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
-}
-
 .aboutProject{
     background-color: #fff;
 }
@@ -49,33 +41,34 @@ body{
 /* контент страницы */
 /* Промо */
 .main-promo{
+    display: flex;
+    flex-direction: column;
+    background-image: url("../static/IMG/background.png");
+    background-position: center 0;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    min-height: 610px;
     padding-bottom: 165px;
 }
-.learningWithGigaShad{
-    display:inline table;
+.commonGigaShad{
+    display: flex;
     margin: 0;
     padding: 0;
     font-size: 40px;
+    margin-top: 30px;
+    margin-bottom: 100px;
     font-weight: 700;
-    margin-right: 683px;
-    margin-top: 116px;
-    padding: 10px 40px;
     border-radius: 30px;
-    background-color: #000;
+    justify-content: center;
+    color: #000;
 }
 .promoTable{
-    display: inline table;
-    margin-left: 960px;
-    margin-top: 85px;
+    margin-right: auto;
+    margin-left: 20px;
     font-size: 24px;
-    font-style: normal;
     font-weight: 700;
-    padding-bottom: 60px;
-    padding-left: 64px;
-    padding-right: 64px;
-    padding-top: 16px;
-    background-color: black;
-    border-radius: 30px;
+    color: #000;
+
 }
 .promoTable p{
     margin: 0;
@@ -83,16 +76,18 @@ body{
     margin-bottom: 34px;
 }
 .promoTable a{
+    margin: 0;
+    padding: 0;
     color: #000;
     text-decoration: none;
     background-color: #fff;
-    padding: 11px 53px;
+    width: 0px;
 }
 
 /* О проекте */
-.aboutProject{
+/* .aboutProject{
     border-top: 57px solid #000;
-}
+} */
 .aboutProject-text{
     margin-top: 50px;
 }
@@ -159,29 +154,34 @@ h2{
 .body-request{
     background-color: #E3E2E2;
 }
-/*Стили для формы */
+
+/*Стили для формы генерации тестов*/
 .form-title{
     display: inline-block;
     margin: 0;
     padding: 0;
     padding: 20px 0px;
     margin-top: 90px;
+    margin-bottom: 70px;
     border-radius: 20px;
     background-color: #262626;
     font-size: 20px;
     font-weight: 400;
     width: 736px;
 }
+
 .form-text-generation{
     display: flex;
     justify-content: center;
-    margin-top: 70px;
+    margin-bottom: 40px;
 }
 textarea{
+    font-size: 18px;
     width: 736px;
     height: 193px;
     border-style: none;
     background-color: #6F6F6F;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
     color: #fff;
     resize: none;
 }
@@ -207,7 +207,6 @@ input[name="text-number-of-questions"]{
     flex-wrap: wrap;
     justify-content: center;
     align-content: space-between;
-    margin-top: 40px;
     min-width: 736px;
 }
 input[name="file"]{
@@ -265,5 +264,50 @@ input[name="send"]{
         
 }
 #gen_que_output{
-color: black;
+    display: flex;
+    margin: 0  auto;
+    margin-top: 40px;
+    margin-bottom: 60px;
+    color: #fff;
+    width: 678px;
+    padding: 0px 30px;
+    background-color: #6F6F6F;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
+}
+
+/* Форма генерации ответов на вопрос */
+input[name="sends"]{
+    width:160px;
+    height:50px;
+    border-radius:20px;
+    background:#2AD91B;
+    border-style: none;
+    color:#fff;
+    font-size:18px;
+    cursor:pointer;
+        
+}
+textarea[name="text_question"]{
+    margin-bottom: 40px;
+
+}
+.text_question{
+    margin-bottom: 40px;
+}
+.input_file_question{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 416px;
+    margin-bottom: 40px;
+}
+#answer_output{
+    display: flex;
+    margin: 0  auto;
+    margin-bottom: 60px;
+    color: #fff;
+    width: 678px;
+    padding: 0px 30px;
+    background-color: #6F6F6F;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
 }
