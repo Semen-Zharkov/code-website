@@ -7,6 +7,7 @@ from gigachatAPI.config_data.config import load_config, Config
 from gigachatAPI.utils.create_prompts import create_prompt
 from gigachatAPI.utils.split_docs import get_docs_list
 from gigachatAPI.utils.output_parser import parse_output
+from gigachatAPI.utils.help_methods import get_tokens, len_yaml
 from gigachatAPI.dita_case.scrap_files import get_dita_docs
 
 
@@ -35,22 +36,29 @@ def generate_questions(file_path: str, cur_que_num: int, dita: int) -> Any:
                 split_docs = get_docs_list(file_path, chunk_size=(document_length // cur_que_num - 100))
                 print(f'[INFO] Кол-во частей после перерасчета: {len(split_docs)}')
             else:
-                return 'Слишком много ошибок или слишком маленький документ!'
+                return 'Слишком много вопросов или слишком маленький документ!'
         final_result = ''
+        token_result = 0
         while True:
             for doc_part in sample(split_docs, cur_que_num):
                 final_result += chain.run(num=1, text=doc_part) + '\n'
+                token_result += len(doc_part.page_content)
             final_result, cur_que_num = parse_output(final_result, cur_que_num, total_que_num)
             if cur_que_num:
                 print(f'[INFO] Успешно сгенерировано {total_que_num - cur_que_num} вопросов')
                 print(f'[INFO] Генерирую еще {cur_que_num} вопросов\n')
                 continue
             print(f'[INFO] Успешно сгенерировано {total_que_num - cur_que_num} вопросов')
-            print(f'[INFO] Токенов потрачено: ...хзпока...\n\n')
+            tokens = get_tokens(len(final_result),
+                                total_que_num * len_yaml(gen_que_sys_prompt_path),
+                                token_result)
+            print(f'[INFO] Токенов потрачено: {tokens}\n\n')
             return final_result
     else:
         final_result = ''
+        iterations = 0
         while True:
+            iterations += 1
             final_result += chain.run(num=cur_que_num, text=split_docs)
             final_result, cur_que_num = parse_output(final_result, cur_que_num, total_que_num)
             if cur_que_num:
@@ -58,5 +66,8 @@ def generate_questions(file_path: str, cur_que_num: int, dita: int) -> Any:
                 print(f'[INFO] Генерирую еще {cur_que_num} вопросов\n')
                 continue
             print(f'[INFO] Успешно сгенерировано {total_que_num - cur_que_num} вопросов')
-            print(f'[INFO] Токенов потрачено: ...хзпока...\n\n')
+            tokens = get_tokens(len(final_result),
+                                iterations * len_yaml(gen_que_sys_prompt_path),
+                                iterations * document_length)
+            print(f'[INFO] Токенов потрачено: {tokens}\n\n')
             return final_result

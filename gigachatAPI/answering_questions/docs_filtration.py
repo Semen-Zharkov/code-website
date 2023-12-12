@@ -6,5 +6,6 @@ from langchain.vectorstores import Chroma
 
 def filter_docs(split_docs: list[Document], question: str) -> Any:
     vectorstore = Chroma.from_documents(documents=split_docs, embedding=GPT4AllEmbeddings())
-    docs = vectorstore.similarity_search(question)
+    docs = vectorstore.similarity_search(question, k=4)
+
     return docs

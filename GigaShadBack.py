@@ -1,6 +1,4 @@
-import os
 from flask import Flask, render_template, request, jsonify
-from gigachatAPI.utils.help_methods import *
 from intermediate_state_back.compose_response import get_result_from_file, get_result_from_text
 from gigachatAPI.main import generate_questions
 from gigachatAPI.answering_questions.answer_questions import get_answer
@@ -19,34 +17,35 @@ def test_page():
 
 
 @Shad.route('/process_file', methods=['POST'])
-def process_file():
+def process_file(ans_aft_que=True):
     uploaded_file = request.files['file']
     que_num_req = request.form['text-number-of-questions']
     que_num = int(que_num_req) if que_num_req and que_num_req.isdigit() else 5
     uploaded_text = request.form['text-generation']
 
     if uploaded_file.filename:
-        result = get_result_from_file(generate_questions, uploaded_file, que_num)
+        result = get_result_from_file(generate_questions, uploaded_file, ans_aft_que, que_num)
     elif uploaded_text:
-        result = get_result_from_text(generate_questions, uploaded_text, que_num)
+        result = get_result_from_text(generate_questions, uploaded_text, ans_aft_que, que_num)
     else:
-        return jsonify({'result': 'Ошибка: файл не выбран'})
+        result = 'Добавьте файл или вставьте текст!'
 
     return jsonify({'result': result})
 
 
 @Shad.route('/process_answer_questions', methods=['POST'])
-def procces_answer_questions():
+def procces_answer_questions(ans_aft_que=False):
     uploaded_file = request.files['file']
     uploaded_text = request.form['text_for_search_answers']
-    asked_questions = [request.form['asked_questions_text']]
+    asked_questions = list(filter(None, request.form['asked_questions_text'].split('\n')))
+    # asked_questions = list(filter(None, request.form['asked_questions_text'].replace('\n', ' ').split(';')))
 
     if uploaded_file.filename:
-        result = get_result_from_file(get_answer, uploaded_file, asked_questions)
+        result = get_result_from_file(get_answer, uploaded_file, ans_aft_que, asked_questions)
     elif uploaded_text:
-        result = get_result_from_file(generate_questions, uploaded_file, asked_questions)
+        result = get_result_from_text(get_answer, uploaded_text, ans_aft_que, asked_questions)
     else:
-        return jsonify({'result': 'Ошибка: файл не выбран'})
+        result = 'Добавьте файл или вставьте текст!'
 
     return jsonify({'result': result})
 
