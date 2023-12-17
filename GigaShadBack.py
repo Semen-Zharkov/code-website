@@ -17,7 +17,7 @@ def test_page():
 
 
 @Shad.route('/process_file', methods=['POST'])
-def process_file(ans_aft_que=True):
+def process_file(ans_aft_que=False):
     uploaded_file = request.files['file']
     que_num_req = request.form['text-number-of-questions']
     que_num = int(que_num_req) if que_num_req and que_num_req.isdigit() else 5
@@ -34,11 +34,10 @@ def process_file(ans_aft_que=True):
 
 
 @Shad.route('/process_answer_questions', methods=['POST'])
-def procces_answer_questions(ans_aft_que=False):
+def process_answer_questions(ans_aft_que=False):
     uploaded_file = request.files['file']
     uploaded_text = request.form['text_for_search_answers']
     asked_questions = list(filter(None, request.form['asked_questions_text'].split('\n')))
-    # asked_questions = list(filter(None, request.form['asked_questions_text'].replace('\n', ' ').split(';')))
 
     if uploaded_file.filename:
         result = get_result_from_file(get_answer, uploaded_file, ans_aft_que, asked_questions)
