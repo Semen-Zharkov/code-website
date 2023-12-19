@@ -15,6 +15,9 @@ def index():
 def test_page():
     return render_template('request.html')
 
+@Shad.route('/test')
+def request_page():
+    return render_template('test.html')
 
 @Shad.route('/process_file', methods=['POST'])
 def process_file(ans_aft_que=False):
