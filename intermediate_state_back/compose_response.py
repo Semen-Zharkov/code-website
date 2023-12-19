@@ -20,7 +20,7 @@ def get_result_from_file(func: Callable, uploaded_file, ans_aft_que: bool, *args
     result = func(file_path, *args, dita)
 
     if ans_aft_que:
-        result += f'<br><br>Ответы:<br>{get_answer(file_path, parse_for_answ(result), dita, after_que=1)}'
+        result += f'<br><br>Ответы:<br>{get_answer(file_path, parse_for_answ(result), dita, after_que=True)}'
 
     shutil.rmtree(file_path) if dita == 1 else os.remove(file_path)
 
@@ -35,8 +35,23 @@ def get_result_from_text(func: Callable, uploaded_text: str, ans_aft_que: bool, 
     result = func(file_path, *args, dita)
 
     if ans_aft_que:
-        result += f'<br><br>Ответы:<br>{get_answer(file_path, parse_for_answ(result), after_que=1)}'
+        result += f'<br><br>Ответы:<br>{get_answer(file_path, parse_for_answ(result), after_que=True)}'
 
     os.remove(file_path)
 
     return result.replace('\n', '<br>')
+
+
+def del_if_exist() -> None:
+    folder_path = 'gigachatAPI/data'
+    for filename in os.listdir(folder_path):
+        file_path = os.path.join(folder_path, filename)
+
+        if filename != "__init__.py":
+            if os.path.isfile(file_path):
+                os.remove(file_path)
+                print(f'удален файл {filename}')
+            elif os.path.isdir(file_path):
+                shutil.rmtree(file_path)
+                print(f'удалена директория {filename}')
+

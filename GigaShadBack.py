@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, jsonify
-from intermediate_state_back.compose_response import get_result_from_file, get_result_from_text
+from intermediate_state_back.compose_response import get_result_from_file, get_result_from_text, del_if_exist
 from gigachatAPI.main import generate_questions
 from gigachatAPI.answering_questions.answer_questions import get_answer
 
@@ -18,6 +18,7 @@ def test_page():
 
 @Shad.route('/process_file', methods=['POST'])
 def process_file(ans_aft_que=False):
+    del_if_exist()
     uploaded_file = request.files['file']
     que_num_req = request.form['text-number-of-questions']
     que_num = int(que_num_req) if que_num_req and que_num_req.isdigit() else 5
@@ -35,6 +36,7 @@ def process_file(ans_aft_que=False):
 
 @Shad.route('/process_answer_questions', methods=['POST'])
 def process_answer_questions(ans_aft_que=False):
+    del_if_exist()
     uploaded_file = request.files['file']
     uploaded_text = request.form['text_for_search_answers']
     asked_questions = list(filter(None, request.form['asked_questions_text'].split('\n')))
