@@ -8,7 +8,13 @@ body{
     color: #fff;
 }
 .aboutProject{
-    background-color: #fff;
+    background-image: url("../static/IMG/background-all3.png");
+    background-position: center 0;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    width: 100%;
+    top: 0px;
 }
 /* шапка сайта */
 .site-navigation{
@@ -37,7 +43,10 @@ body{
     font-size: 36px;
     font-weight: 400;
 }
-
+.nav-about-project{
+    font-size: 36px;
+    font-weight: 400;
+}
 /* кнопки в шапке */
 .button{
     display: flex;
@@ -52,7 +61,7 @@ p{
 .button a{
     padding: 10px 20px;
     font-size: 20px;
-    background-color: #2AD91B;
+    background-color: #366;
     border-radius: 45px;
     text-decoration: none;
     color: #fff;
@@ -112,7 +121,7 @@ p{
     border-top: 57px solid #000;
 } */
 .aboutProject-text{
-    margin-top: 50px;
+    padding-top: 50px;
 }
 .criterion{
     display: flex;
@@ -173,58 +182,87 @@ h2{
 }
 
 
-
 /* Стили для файла request */
+/* Фон для страницы создания тестов и вопросно-ответной страницы */
 .body-request{
-    background-color: #E3E2E2;
+    background-image: url("../static/IMG/background-all.png");
+    background-position: center 0;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    width: 100%;
+    top: 0px;
 }
-
-/*Стили для формы генерации тестов*/
-.form-title{
-    display: inline-block;
-    margin: 0;
-    padding: 0;
-    padding: 20px 0px;
-    margin-top: 90px;
-    margin-bottom: 70px;
-    border-radius: 20px;
-    background-color: #262626;
-    font-size: 20px;
-    font-weight: 400;
+/*Стили для страницы request*/
+.form_question{
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
     width: 736px;
 }
-
+.form-title{
+    display: flex;
+    margin: 0;
+    padding: 0;
+    padding: 22px 176px 22px 14px;
+    margin-bottom: 70px;
+    margin-top: 109px;
+    background-image: url("../static/IMG/plateTest.png");
+    background-repeat: no-repeat;
+    font-size: 20px;
+    font-weight: 400;
+    
+}
+textarea[name="text_for_search_answers"]{
+    width: 706px;
+    padding: 23px 15px;
+}
+textarea[name="asked_questions_text"]{
+    width: 706px;
+    padding: 23px 15px;
+}
 .form-text-generation{
     display: flex;
     justify-content: center;
     margin-bottom: 40px;
 }
 textarea{
-    font-size: 18px;
-    width: 736px;
-    height: 193px;
+    width: 100%;   
+    height: 150px;
     border-style: none;
-    background-color: #6F6F6F;
+    background: #D6D6D6;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
-    color: #fff;
-    resize: none;
+    color: #000;
+    resize: none;font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
 }
 input[name="text-number-of-questions"]{
     border-style: none;
     width: 256px;
-    height: 49px;
-    background-color: #000;
-    margin-right: 320px;
-    color:#fff;
-    font-size: 18px;
+    height: 48px;
+    background-image: url("../static/IMG/countQuestions.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    margin-right: 299px;
+    color: #FFF;
+    font-size: 17px;
     font-style: normal;
     font-weight: 700;
+    line-height: normal;
+    padding-left: 21px;
 }
-::placeholder{
+input[name="text-number-of-questions"]::placeholder{
     color: #fff;
-    font-size: 18px;
+}
+textarea::placeholder{
+    color: #000;
+    font-size: 20px;
     font-style: normal;
-    font-weight: 700;
+    font-weight: 400;
+    line-height: normal;
 }
 .container-doc{
     display: flex;
@@ -244,7 +282,8 @@ input[name="file"]{
     display: inline-block;
     width: 160px;
     height: 50px;
-    background-color: #2F16CC;
+    background-image: url("../static/IMG/addFile.png");
+    background-size: 100% 100%;
     border-radius: 20px;
 }
 .input-file span{
@@ -283,7 +322,7 @@ input[name="send"]{
     width:160px;
     height:50px;
     border-radius:20px;
-    background:#2AD91B;
+    background-image: url("../static/IMG/buttonCreate.png");
     border-style: none;
     color:#fff;
     font-size:18px;
@@ -301,10 +340,9 @@ input[name="send"]:active{
     margin: 0  auto;
     margin-top: 40px;
     margin-bottom: 60px;
-    color: #fff;
-    width: 678px;
-    padding: 0px 30px;
-    background-color: #6F6F6F;
+    color: #000;
+    width: 736px;    
+    background-color: #D9D9D9;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
     text-align: left;
 }
@@ -315,6 +353,9 @@ input[name="send"]:active{
     display: flex;
     justify-content: center;
     min-width: 736px;
+}
+textarea[name="text-generation"]{
+    padding: 23px 15px;
 }
 input[name="sends"]{
     width:160px;
@@ -346,7 +387,7 @@ textarea[name="text_question"]{
     display: flex;
     margin: 0  auto;
     margin-bottom: 60px;
-    color: #fff;
+    color: #000;
     width: 678px;
     padding: 0px 30px;
     background-color: #6F6F6F;
