@@ -15,12 +15,14 @@ def index():
 def test_page():
     return render_template('request.html')
 
+
 @Shad.route('/test')
 def request_page():
     return render_template('test.html')
 
+
 @Shad.route('/process_file', methods=['POST'])
-def process_file(ans_aft_que=False):
+def process_file(ans_aft_que=True):
     del_if_exist()
     uploaded_file = request.files['file']
     que_num_req = request.form['text-number-of-questions']
@@ -38,7 +40,7 @@ def process_file(ans_aft_que=False):
 
 
 @Shad.route('/process_answer_questions', methods=['POST'])
-def process_answer_questions(ans_aft_que=False):
+def process_answer_questions(ans_aft_que=True):
     del_if_exist()
     uploaded_file = request.files['file']
     uploaded_text = request.form['text_for_search_answers']

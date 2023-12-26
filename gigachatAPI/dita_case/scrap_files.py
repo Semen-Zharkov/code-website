@@ -9,7 +9,6 @@ from gigachatAPI.utils.help_methods import get_doc_length
 
 
 def get_dita_docs(dita_path: str, chunk_size: int = 0, min_doc_length=0) -> list[Document]:
-    max_size = 39000
 
     def get_dita_paths(directory_path: str) -> dict[str | bytes, int]:
         dit = {}
