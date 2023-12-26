@@ -22,7 +22,7 @@ def request_page():
 
 
 @Shad.route('/process_file', methods=['POST'])
-def process_file(ans_aft_que=True):
+def process_file(ans_aft_que=False):
     del_if_exist()
     uploaded_file = request.files['file']
     que_num_req = request.form['text-number-of-questions']
@@ -40,7 +40,7 @@ def process_file(ans_aft_que=True):
 
 
 @Shad.route('/process_answer_questions', methods=['POST'])
-def process_answer_questions(ans_aft_que=True):
+def process_answer_questions(ans_aft_que=False):
     del_if_exist()
     uploaded_file = request.files['file']
     uploaded_text = request.form['text_for_search_answers']
