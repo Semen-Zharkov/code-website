@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 from intermediate_state_back.compose_response import get_result_from_file, get_result_from_text, del_if_exist
-from gigachatAPI.main import generate_questions
+from gigachatAPI.generate_test import generate_questions
 from gigachatAPI.answering_questions.answer_questions import get_answer
 
 Shad = Flask(__name__)
