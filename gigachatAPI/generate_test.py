@@ -8,6 +8,7 @@ from gigachatAPI.utils.create_prompts import create_prompt
 from gigachatAPI.utils.split_docs import get_docs_list
 from gigachatAPI.utils.output_parser import parse_output
 from gigachatAPI.utils.help_methods import get_tokens, len_yaml
+from gigachatAPI.utils.split_long_elements import split_long_elements
 from gigachatAPI.dita_case.scrap_files import get_dita_docs
 
 
@@ -27,6 +28,11 @@ def generate_questions(file_path: str, cur_que_num: int, dita: int) -> Any:
 
     document_length = sum(len(i.page_content) for i in split_docs)
     max_part_doc_len = max(len(i.page_content) for i in split_docs)
+
+    if max_part_doc_len > 10000:
+        split_docs = split_long_elements(split_docs, 10000)
+        max_part_doc_len = max(len(i.page_content) for i in split_docs)
+
     total_que_num = cur_que_num
     print(f'[INFO] Вопросов нужно: {total_que_num} | Длина дока: {document_length}')
     print(f'[INFO] Кол-во частей дока: {len(split_docs)} | Макс длина части дока: {max_part_doc_len}\n')

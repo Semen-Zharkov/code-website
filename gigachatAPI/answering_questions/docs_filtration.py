@@ -37,10 +37,3 @@ def filter_docs(split_docs: list[Document], question: str, out_files_num=4) -> A
 #
 #     return docs
 
-
-# def retrieve_docs(split_docs: list[Document], question: str) -> Any:
-#     vectorstore = Chroma.from_documents(documents=split_docs, embedding=SentenceTransformerEmbeddings())
-#     retriever = vectorstore.as_retriever(search_kwargs={'k': 1})
-#     docs = retriever.invoke(question)
-#
-#     return docs
