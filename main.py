@@ -57,4 +57,4 @@ def process_answer_questions(ans_aft_que=False):
 
 
 if __name__ == '__main__':
-    Shad.run(debug=True)
+    Shad.run(debug=True, host='0.0.0.0')
