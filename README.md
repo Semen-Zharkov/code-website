@@ -8,18 +8,18 @@ ___
 
 Чтобы начать использовать это приложение, выберите один из вариантов:
 
-## Docker
+## Start with Docker
 
-### 1. First, ensure you have both Docker and Docker Compose installed.
+### 1. Сначала убедитесь, что Docker и Docker Compose установлены
 
    - [Install Docker](https://docs.docker.com/get-docker/)
    - [Install Docker Compose](https://docs.docker.com/compose/install/)
 
 ### 2. Клонируйте репозиторий
-Выполните следующую команду в терминале:
+
 
    ```bash
-   git clone https://github.com/Semen-Zharkov/-code-website.git
+   git clone https://github.com/Semen-Zharkov/code-website.git
    ```
 ### 3. Перейдите в директорию проекта
    ```bash
@@ -42,17 +42,23 @@ ___
 
 ### Чтобы остановить контейнеры Docker, просто запустите:
    ```bash
-   docker compose dowm
+   docker compose down
    ```
 
-## Simply cloning repo
+##  Start without Docker
 
-### 1. Установите необходимые зависимости, запустив следующую команду в терминале:
+### 1. Клонируйте репозиторий
+
+   ```bash
+   git clone https://github.com/Semen-Zharkov/code-website.git
+   ```
+
+### 2. Установите необходимые зависимости
  ```bash
  pip install -r requirements.txt
  ```
 
-### 2. В директории `gigachatAPI` создайте файл `.env` и вставьте в него следующее:
+### 3. В директории `gigachatAPI` создайте файл `.env` и вставьте в него вашу *авторизационную информацию*:
 
  ```bash
  AU_DATA=ваши_авторизационные_данные
