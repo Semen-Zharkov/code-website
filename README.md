@@ -35,7 +35,7 @@ ___
 
 ### 5. Запустите приложение с помощью Docker Compose:
    ```bash
-   docker compose up
+   docker compose up --build
    ```
 
 **Теперь ваш сервер будет работать по адресу http://localhost:5000**
