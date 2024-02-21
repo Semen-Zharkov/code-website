@@ -4,7 +4,7 @@ services:
   code_website:
     build:
       context: .
-    image: code_website_image:v04
+    image: code_website_image:latest
     ports:
       - "5000:5000"
     restart: always
