@@ -217,10 +217,7 @@ h2{
     font-weight: 400;
     
 }
-textarea[name="text_for_search_answers"]{
-    width: 706px;
-    padding: 23px 15px;
-}
+
 textarea[name="asked_questions_text"]{
     width: 706px;
     padding: 23px 15px;
