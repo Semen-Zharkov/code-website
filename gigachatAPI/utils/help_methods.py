@@ -1,6 +1,7 @@
 import zipfile
 import yaml
 import os
+from typing import Optional
 
 
 def extract_zip(zipfile_path: str, extractes_files_path: str) -> None:
@@ -13,7 +14,7 @@ def get_doc_length(path_doc: str) -> int:
         return len(file.read())
 
 
-def get_tokens(s1: int, s2: int, ln: int) -> int:
+def get_tokens(s1: int, s2: Optional[int] = 0, ln: Optional[int] = 0) -> int:
     sm = sum((s1, s2, ln))
     return (sm // 3 + sm // 4) // 2
 

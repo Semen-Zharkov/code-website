@@ -84,3 +84,4 @@ target/
 
 gaenv_lib/
 appengine_config.py
+/info_logs.txt
