@@ -29,8 +29,8 @@ def generate_questions(file_path: str, cur_que_num: int, dita: int) -> Any:
     document_length = sum(len(i.page_content) for i in split_docs)
     max_part_doc_len = max(len(i.page_content) for i in split_docs)
 
-    if max_part_doc_len > 10000:
-        split_docs = split_long_elements(split_docs, 10000)
+    if max_part_doc_len > 7000:
+        split_docs = split_long_elements(split_docs, 7000)
         max_part_doc_len = max(len(i.page_content) for i in split_docs)
 
     total_que_num = cur_que_num

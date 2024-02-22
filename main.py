@@ -43,13 +43,10 @@ def process_file(ans_aft_que=False):
 def process_answer_questions(ans_aft_que=False):
     del_if_exist()
     uploaded_file = request.files['file']
-    uploaded_text = request.form['text_for_search_answers']
     asked_questions = list(filter(None, request.form['asked_questions_text'].split('\n')))
 
     if uploaded_file.filename:
         result = get_result_from_file(get_answer, uploaded_file, ans_aft_que, asked_questions)
-    elif uploaded_text:
-        result = get_result_from_text(get_answer, uploaded_text, ans_aft_que, asked_questions)
     else:
         result = 'Добавьте файл или вставьте текст!'
 
