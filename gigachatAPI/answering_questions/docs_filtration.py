@@ -2,7 +2,7 @@ from typing import Any
 from langchain.embeddings.sentence_transformer import SentenceTransformerEmbeddings
 from langchain.embeddings.gpt4all import GPT4AllEmbeddings
 from langchain.schema import Document
-from langchain.vectorstores import Chroma
+from langchain_community.vectorstores import Chroma
 from chromadb.config import Settings
 
 
@@ -12,7 +12,7 @@ def filter_docs(split_docs: list[Document], question: str, out_files_num=4) -> A
                                         client_settings=Settings(anonymized_telemetry=False),)
     docs = vectorstore.similarity_search(question, k=out_files_num)
 
-    return docs, vectorstore
+    return docs, vectorstore.as_retriever()
 
 
 # def filter_docs2(split_docs: list[Document], question: str, out_files_num=4) -> Any:
