@@ -8,11 +8,10 @@ from chromadb.config import Settings
 
 def filter_docs(split_docs: list[Document], question: str, out_files_num=4) -> Any:
     vectorstore = Chroma.from_documents(documents=split_docs,
-                                        embedding=SentenceTransformerEmbeddings(),
-                                        client_settings=Settings(anonymized_telemetry=False),)
+                                        embedding=SentenceTransformerEmbeddings(),)
     docs = vectorstore.similarity_search(question, k=out_files_num)
 
-    return docs, vectorstore.as_retriever()
+    return docs, vectorstore.as_retriever(search_type="similarity", search_kwargs={"k": 1})
 
 
 # def filter_docs2(split_docs: list[Document], question: str, out_files_num=4) -> Any:

@@ -24,12 +24,8 @@ def get_answer(file_path: str, question_list: list[str], dita: int = 0, after_qu
 
     if dita == 1:
         split_docs = get_dita_docs(file_path, chunk_size=7000)
-        func = filter_docs
-        out_files_num = 1
     else:
-        split_docs = get_docs_list(file_path, separator='\n', chunk_size=25000)
-        func = filter_docs
-        out_files_num = 1
+        split_docs = get_docs_list(file_path, separator='\n', chunk_size=7000)
 
     data_process_time = time.time() - start_time
 
@@ -47,7 +43,7 @@ def get_answer(file_path: str, question_list: list[str], dita: int = 0, after_qu
     for q_num, que in enumerate(question_list, start=1):
         dita_length = 0
         question_start_time = time.time()
-        filtered_docs, retriever = func(split_docs, que, out_files_num=out_files_num)
+        filtered_docs, retriever = filter_docs(split_docs, que, out_files_num=1)
         logger_info.info(f'Время работы Chroma для вопроса №{q_num}: {time.time() - question_start_time} секунд')
 
         rag_chain = (
