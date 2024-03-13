@@ -20,5 +20,3 @@ def create_prompt(path_system: str, path_user: str = '') -> ChatPromptTemplate:
             )
         ]
     )
-
-

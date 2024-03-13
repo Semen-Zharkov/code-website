@@ -1,9 +1,7 @@
 import time
-from langchain.chains import LLMChain
-from langchain.chains import RetrievalQA
 from langchain.chat_models.gigachat import GigaChat
 from gigachatAPI.config_data.config_data import *
-from gigachatAPI.utils.create_prompts import create_prompt
+from gigachatAPI.prompts.qna_system_temp import custom_rag_prompt
 from langchain import hub
 from gigachatAPI.config_data.config import load_config, Config
 from gigachatAPI.dita_case.scrap_files import get_dita_docs
@@ -33,8 +31,8 @@ def get_answer(file_path: str, question_list: list[str], dita: int = 0, after_qu
                      f' {sum(len(i.page_content) for i in split_docs)}\n')
     logger_info.info(f'Время обработки данных: {data_process_time} секунд\n')
 
-    # prompt = create_prompt(get_answ_sys_prompt_path, get_answ_usr_prompt_path)
-    prompt = hub.pull("rlm/rag-prompt")
+    # prompt = hub.pull("rlm/rag-prompt")
+
     tokens_result = 0
 
     def format_docs(docs):
@@ -48,7 +46,7 @@ def get_answer(file_path: str, question_list: list[str], dita: int = 0, after_qu
 
         rag_chain = (
                 {"context": retriever | format_docs, "question": RunnablePassthrough()}
-                | prompt
+                | custom_rag_prompt
                 | giga
                 | StrOutputParser()
         )

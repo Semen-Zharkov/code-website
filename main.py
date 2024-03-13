@@ -43,7 +43,7 @@ def process_file(ans_aft_que=False):
 def process_answer_questions(ans_aft_que=False):
     del_if_exist()
     uploaded_file = request.files['file']
-    asked_questions = list(filter(None, request.form['asked_questions_text'].split('\n')))
+    asked_questions = list(filter(None, request.form['asked_questions_text'].split(';')))
 
     if uploaded_file.filename:
         result = get_result_from_file(get_answer, uploaded_file, ans_aft_que, asked_questions)
