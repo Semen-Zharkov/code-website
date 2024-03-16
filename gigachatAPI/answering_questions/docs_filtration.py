@@ -11,7 +11,7 @@ def filter_docs(split_docs: list[Document], question: str, out_files_num=4) -> A
                                         embedding=SentenceTransformerEmbeddings(),)
     docs = vectorstore.similarity_search(question, k=out_files_num)
 
-    return docs, vectorstore.as_retriever(search_type="similarity", search_kwargs={"k": 1})
+    return docs, vectorstore
 
 
 # def filter_docs2(split_docs: list[Document], question: str, out_files_num=4) -> Any:

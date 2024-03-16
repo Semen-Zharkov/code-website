@@ -1,4 +1,6 @@
 import time
+
+from langchain.chains import RetrievalQA
 from langchain.chat_models.gigachat import GigaChat
 from gigachatAPI.config_data.config_data import *
 from gigachatAPI.prompts.qna_system_temp import custom_rag_prompt
@@ -21,9 +23,9 @@ def get_answer(file_path: str, question_list: list[str], dita: int = 0, after_qu
     start_time = time.time()
 
     if dita == 1:
-        split_docs = get_dita_docs(file_path, chunk_size=7000)
+        split_docs = get_dita_docs(file_path, chunk_size=10000)
     else:
-        split_docs = get_docs_list(file_path, separator='\n', chunk_size=7000)
+        split_docs = get_docs_list(file_path, separator='\n', chunk_size=10000)
 
     data_process_time = time.time() - start_time
 
@@ -44,11 +46,24 @@ def get_answer(file_path: str, question_list: list[str], dita: int = 0, after_qu
         filtered_docs, retriever = filter_docs(split_docs, que, out_files_num=1)
         logger_info.info(f'Время работы Chroma для вопроса №{q_num}: {time.time() - question_start_time} секунд')
 
-        rag_chain = (
-                {"context": retriever | format_docs, "question": RunnablePassthrough()}
-                | custom_rag_prompt
-                | giga
-                | StrOutputParser()
+        # rag_chain = (
+        #         {"context": retriever | format_docs, "question": RunnablePassthrough()}
+        #         | custom_rag_prompt
+        #         | giga
+        #         | StrOutputParser()
+        # )
+        chain = RetrievalQA.from_chain_type(
+            llm=giga,
+            # chain_type="stuff",
+            retriever=retriever.as_retriever(
+                # search_type="similarity",
+                search_kwargs={"k": 1}
+            ),
+            # verbose=True,
+            chain_type_kwargs={
+                # "verbose": True,
+                "prompt": custom_rag_prompt
+            }
         )
 
         gigachat_start_time = time.time()
@@ -56,8 +71,9 @@ def get_answer(file_path: str, question_list: list[str], dita: int = 0, after_qu
             dita_length = sum(len(i.page_content) for i in filtered_docs)
             logger_info.info(f'Длина отфильтрованных документов: {dita_length}')
 
-        result = rag_chain.invoke(que)
-
+        # result = rag_chain.invoke(que)
+        qa_chain = chain.invoke({"query": que})
+        result = qa_chain['result']
         logger_info.info(f'Время работы GigaChat для вопроса №{q_num}: {time.time() - gigachat_start_time} секунд')
         if after_que:
             final_res += f'{q_num}. {result}\n\n'
