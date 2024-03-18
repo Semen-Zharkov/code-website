@@ -23,9 +23,9 @@ def get_answer(file_path: str, question_list: list[str], dita: int = 0, after_qu
     start_time = time.time()
 
     if dita == 1:
-        split_docs = get_dita_docs(file_path, chunk_size=10000)
+        split_docs = get_dita_docs(file_path, chunk_size=2500)
     else:
-        split_docs = get_docs_list(file_path, separator='\n', chunk_size=10000)
+        split_docs = get_docs_list(file_path, separator='\n', chunk_size=2500)
 
     data_process_time = time.time() - start_time
 
@@ -57,7 +57,7 @@ def get_answer(file_path: str, question_list: list[str], dita: int = 0, after_qu
             # chain_type="stuff",
             retriever=retriever.as_retriever(
                 # search_type="similarity",
-                search_kwargs={"k": 1}
+                search_kwargs={"k": 4}
             ),
             # verbose=True,
             chain_type_kwargs={
